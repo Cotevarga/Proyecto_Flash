@@ -145,7 +145,7 @@ HTML_TEMPLATE = """
   <div class="card">
     <div class="badge">Toda mi vida estuve buscando lo imposible, jamás pensé que contigo lo encontraría.</div>
     <div class="text">
-      Te amo muuuucho <br>Rodrigo
+      Ti amo muuuucho <br>Rodrigo
     </div>
     <div class="heart">♥</div>
   </div>
