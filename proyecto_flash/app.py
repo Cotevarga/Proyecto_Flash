@@ -16,24 +16,25 @@ HTML_TEMPLATE = """
       padding: 0;
     }
     body {
-      background: radial-gradient(circle at center, #1a0000 0%, #050000 100%);
+      background: radial-gradient(circle at center, #1c0202 0%, #050000 100%);
       height: 100vh;
       overflow: hidden;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      touch-action: manipulation;
+      position: relative;
     }
 
-    /* Rayos en pantalla */
+    /* Rayos iniciales en pantalla */
     .lightning-bg {
       position: absolute;
       inset: 0;
       background: #ffe600;
       opacity: 0;
       pointer-events: none;
-      animation: lightning 0.3s ease-out 0.6s 2;
+      animation: lightning 0.3s ease-out 0.5s 2;
     }
 
     @keyframes lightning {
@@ -42,7 +43,7 @@ HTML_TEMPLATE = """
       100% { opacity: 0; }
     }
 
-    /* Estela de velocidad roja y amarilla */
+    /* Estela de velocidad inicial */
     .speed-trail {
       position: absolute;
       top: 50%;
@@ -51,77 +52,77 @@ HTML_TEMPLATE = """
       height: 8px;
       background: linear-gradient(90deg, transparent, #ffea00, #ff1e00, transparent);
       opacity: 0;
-      box-shadow: 0 0 20px #ffea00, 0 0 45px #ff1e00;
-      animation: trail 1.2s ease-out 0.6s forwards;
+      box-shadow: 0 0 25px #ffea00, 0 0 50px #ff1e00;
+      animation: trail 1.2s ease-out 0.5s forwards;
     }
 
-    /* Flash corriendo */
-    .runner {
+    /* 1. Primera pasada rápida de Flash */
+    .runner-first-pass {
       position: absolute;
       top: calc(50% - 30px);
       left: -150px;
       font-size: 3.5rem;
       z-index: 10;
       filter: drop-shadow(0 0 15px #ffea00) drop-shadow(-30px 0 10px #e50914);
-      animation: sprint 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.5s forwards;
+      animation: sprintAcross 1.1s cubic-bezier(0.25, 1, 0.5, 1) 0.4s forwards;
     }
 
-    @keyframes sprint {
+    @keyframes sprintAcross {
       0% {
         left: -150px;
         transform: skewX(-25deg);
       }
       100% {
-        left: 125vw;
+        left: 130vw;
         transform: skewX(-35deg);
       }
     }
 
     @keyframes trail {
-      0% { opacity: 0; transform: scaleY(1); }
+      0% { opacity: 0; }
       40% { opacity: 1; transform: scaleY(2); }
       100% { opacity: 0; transform: scaleY(0.5); }
     }
 
-    /* Contenedor del mensaje que aparece tras la carrera */
+    /* Mensaje central */
     .card {
       text-align: center;
-      padding: 24px;
+      padding: 20px;
       opacity: 0;
       transform: scale(0.6);
-      animation: popMessage 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.4s forwards;
+      animation: popMessage 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.2s forwards;
       z-index: 5;
     }
 
     .badge {
       display: inline-block;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       padding: 5px 16px;
       background: rgba(255, 234, 0, 0.12);
       border: 1px solid #ffea00;
       border-radius: 999px;
       color: #ffea00;
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
     }
 
     .text {
       color: #ffffff;
-      font-size: 2rem;
+      font-size: 2.1rem;
       font-weight: 800;
       line-height: 1.35;
-      text-shadow: 0 0 15px rgba(255, 30, 0, 0.7), 0 0 30px rgba(255, 234, 0, 0.4);
+      text-shadow: 0 0 15px rgba(255, 30, 0, 0.75), 0 0 30px rgba(255, 234, 0, 0.4);
     }
 
     .heart {
       display: inline-block;
       color: #ff1e42;
-      font-size: 3.5rem;
-      margin-top: 15px;
+      font-size: 3.2rem;
+      margin-top: 10px;
       filter: drop-shadow(0 0 15px #ff1e42);
-      animation: beat 1.1s infinite ease-in-out 2.2s;
+      animation: beat 1.1s infinite ease-in-out 1.8s;
     }
 
     @keyframes popMessage {
@@ -135,19 +136,89 @@ HTML_TEMPLATE = """
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.25); }
     }
+
+    /* 2. Flash vuelve por abajo y se queda moviéndose */
+    .flash-bottom-container {
+      position: absolute;
+      bottom: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* Entra deslizándose desde abajo a los 2.2 segundos */
+      animation: enterFromBottom 1s cubic-bezier(0.2, 0.8, 0.2, 1) 2.2s forwards;
+    }
+
+    @keyframes enterFromBottom {
+      to {
+        bottom: 45px;
+      }
+    }
+
+    /* Movimiento continuo de Flash patrullando / trotando */
+    .flash-character {
+      font-size: 3.2rem;
+      filter: drop-shadow(0 0 15px #ffea00) drop-shadow(0 0 25px #ff1e00);
+      animation: runningMotion 0.45s infinite alternate ease-in-out 3.2s,
+                 patrolPacing 4s infinite alternate ease-in-out 3.2s;
+    }
+
+    /* Animación de carrera rápida en su lugar */
+    @keyframes runningMotion {
+      0% {
+        transform: translateY(0px) rotate(-3deg) scale(1);
+      }
+      100% {
+        transform: translateY(-10px) rotate(4deg) scale(1.08);
+      }
+    }
+
+    /* Se desplaza suavemente de izquierda a derecha en la zona inferior */
+    @keyframes patrolPacing {
+      0% {
+        margin-left: -50px;
+      }
+      100% {
+        margin-left: 50px;
+      }
+    }
+
+    .energy-sparks {
+      font-size: 1.2rem;
+      color: #ffea00;
+      letter-spacing: 6px;
+      animation: sparkFlicker 0.25s infinite alternate 3.2s;
+      text-shadow: 0 0 8px #ffea00;
+    }
+
+    @keyframes sparkFlicker {
+      0% { opacity: 0.3; transform: scaleX(0.85); }
+      100% { opacity: 1; transform: scaleX(1.15); }
+    }
   </style>
 </head>
 <body>
   <div class="lightning-bg"></div>
   <div class="speed-trail"></div>
-  <div class="runner">⚡🏃💨</div>
 
+  <!-- Primer Flash que pasa volando y deja el mensaje -->
+  <div class="runner-first-pass">⚡🏃💨</div>
+
+  <!-- Mensaje central -->
   <div class="card">
-    <div class="badge">Toda mi vida estuve buscando lo imposible, jamás pensé que contigo lo encontraría.</div>
+    <div class="badge">A la velocidad de la luz</div>
     <div class="text">
-      Ti amo muuuucho <br>Rodrigo
+      te amo muuuucho<br>mi amor
     </div>
     <div class="heart">♥</div>
+  </div>
+
+  <!-- Flash que regresa por abajo y se queda moviéndose con electricidad -->
+  <div class="flash-bottom-container">
+    <div class="flash-character">⚡🏃⚡</div>
+    <div class="energy-sparks">⚡ ⚡ ⚡</div>
   </div>
 </body>
 </html>
