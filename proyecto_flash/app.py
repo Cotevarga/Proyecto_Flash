@@ -27,7 +27,7 @@ HTML_TEMPLATE = """
       position: relative;
     }
 
-    /* Destello de relámpago inicial */
+    /* Destello inicial de relámpago */
     .lightning-bg {
       position: absolute;
       inset: 0;
@@ -50,9 +50,9 @@ HTML_TEMPLATE = """
       left: 0;
       width: 100%;
       height: 8px;
-      background: linear-gradient(90deg, transparent, #ffe600, #e50914, transparent);
+      background: linear-gradient(90deg, transparent, #ffe600, #c62828, transparent);
       opacity: 0;
-      box-shadow: 0 0 25px #ffe600, 0 0 50px #e50914;
+      box-shadow: 0 0 25px #ffe600, 0 0 50px #c62828;
       animation: trail 1.1s ease-out 0.4s forwards;
     }
 
@@ -67,10 +67,10 @@ HTML_TEMPLATE = """
       position: absolute;
       top: calc(50% - 65px);
       left: -200px;
-      width: 130px;
-      height: 130px;
+      width: 135px;
+      height: 135px;
       z-index: 10;
-      filter: drop-shadow(0 0 15px #ffe600) drop-shadow(-35px 0 10px #e50914);
+      filter: drop-shadow(0 0 15px #ffe600) drop-shadow(-35px 0 10px #c62828);
       animation: sprintAcross 1s cubic-bezier(0.25, 1, 0.5, 1) 0.3s forwards;
     }
 
@@ -160,11 +160,11 @@ HTML_TEMPLATE = """
     .flash-avatar {
       width: 125px;
       height: 125px;
-      filter: drop-shadow(0 0 12px #ffe600) drop-shadow(0 0 25px #d50000);
+      filter: drop-shadow(0 0 12px #ffe600) drop-shadow(0 0 25px #c62828);
       animation: patrol 3.5s infinite alternate ease-in-out 2.8s;
     }
 
-    /* Patrulla de izquierda a derecha */
+    /* Movimiento de patrulla de izquierda a derecha */
     @keyframes patrol {
       0% {
         transform: translateX(-45px) scaleX(1);
@@ -183,13 +183,12 @@ HTML_TEMPLATE = """
       }
     }
 
-    /* Rayos vivos de la Speed Force */
     .speedforce-aura {
       width: 130px;
       height: 4px;
       margin-top: -6px;
-      background: radial-gradient(circle, #ffe600 0%, #e50914 60%, transparent 100%);
-      box-shadow: 0 0 15px #ffe600, 0 0 30px #e50914;
+      background: radial-gradient(circle, #ffe600 0%, #c62828 60%, transparent 100%);
+      box-shadow: 0 0 15px #ffe600, 0 0 30px #c62828;
       animation: auraPulse 0.3s infinite alternate ease-in-out 2.8s;
     }
 
@@ -200,23 +199,23 @@ HTML_TEMPLATE = """
 
     /* Animación de carrera para las extremidades */
     .leg-back {
-      transform-origin: 40px 65px;
-      animation: legBackMove 0.28s infinite alternate ease-in-out;
+      transform-origin: 48px 62px;
+      animation: legBackMove 0.26s infinite alternate ease-in-out;
     }
     .leg-front {
-      transform-origin: 50px 65px;
-      animation: legFrontMove 0.28s infinite alternate ease-in-out;
+      transform-origin: 52px 62px;
+      animation: legFrontMove 0.26s infinite alternate ease-in-out;
     }
     .arm-back {
-      transform-origin: 40px 42px;
-      animation: armBackMove 0.28s infinite alternate ease-in-out;
+      transform-origin: 46px 42px;
+      animation: armBackMove 0.26s infinite alternate ease-in-out;
     }
     .arm-front {
-      transform-origin: 55px 40px;
-      animation: armFrontMove 0.28s infinite alternate ease-in-out;
+      transform-origin: 58px 40px;
+      animation: armFrontMove 0.26s infinite alternate ease-in-out;
     }
     .body-bob {
-      animation: bobbing 0.14s infinite alternate ease-in-out;
+      animation: bobbing 0.13s infinite alternate ease-in-out;
     }
     .lightning-crack {
       animation: crackle 0.2s infinite alternate;
@@ -231,7 +230,7 @@ HTML_TEMPLATE = """
       100% { transform: rotate(-30deg); }
     }
     @keyframes armBackMove {
-      0% { transform: rotate(30deg); }
+      0% { transform: rotate(35deg); }
       100% { transform: rotate(-35deg); }
     }
     @keyframes armFrontMove {
@@ -240,11 +239,11 @@ HTML_TEMPLATE = """
     }
     @keyframes bobbing {
       0% { transform: translateY(0px); }
-      100% { transform: translateY(-4px); }
+      100% { transform: translateY(-3px); }
     }
     @keyframes crackle {
-      0% { opacity: 0.2; transform: scale(0.85); }
-      100% { opacity: 1; transform: scale(1.15); }
+      0% { opacity: 0.2; }
+      100% { opacity: 0.9; }
     }
   </style>
 </head>
@@ -252,60 +251,67 @@ HTML_TEMPLATE = """
   <div class="lightning-bg"></div>
   <div class="speed-trail"></div>
 
-  <!-- Componente gráfico de Flash -->
+  <!-- Componente gráfico de Flash Barry Allen -->
   {% macro flash_figure() %}
-  <svg viewBox="0 0 110 110" width="100%" height="100%">
-    <!-- Rayos de fondo -->
-    <g class="lightning-crack">
-      <polygon points="10,48 35,40 26,55 52,44 20,68 34,56" fill="#ffe600" opacity="0.85"/>
-      <polygon points="50,20 62,8 58,24 72,12" fill="#ffe600" opacity="0.9"/>
+  <svg viewBox="0 0 120 120" width="100%" height="100%">
+    <!-- Rayos de electricidad Speed Force traseros -->
+    <g class="lightning-crack" stroke="#ffe600" stroke-width="2" fill="none">
+      <path d="M 25 45 L 35 52 L 28 60 L 40 68" />
+      <path d="M 50 15 L 42 25 L 48 30" />
     </g>
 
-    <!-- Pierna trasera con bota dorada -->
+    <!-- Pierna Trasera -->
     <g class="leg-back">
-      <line x1="40" y1="65" x2="22" y2="88" stroke="#b71c1c" stroke-width="10" stroke-linecap="round"/>
-      <polygon points="16,88 28,84 20,96" fill="#ffe600"/>
+      <path d="M 46 62 Q 35 75 22 88" stroke="#9b0000" stroke-width="8" stroke-linecap="round" fill="none"/>
+      <!-- Bota dorada -->
+      <path d="M 22 88 L 12 90 L 18 96 Z" fill="#ffd700" stroke="#ffb300" stroke-width="1"/>
     </g>
 
-    <!-- Brazo trasero -->
+    <!-- Brazo Trasero -->
     <g class="arm-back">
-      <line x1="42" y1="42" x2="25" y2="54" stroke="#b71c1c" stroke-width="8" stroke-linecap="round"/>
-      <polygon points="25,54 17,50 20,60" fill="#ffe600"/>
+      <path d="M 46 42 Q 35 50 25 58" stroke="#9b0000" stroke-width="7" stroke-linecap="round" fill="none"/>
+      <!-- Guantelete dorado -->
+      <circle cx="25" cy="58" r="4" fill="#ffd700"/>
     </g>
 
-    <!-- Cuerpo y Cabeza articulados -->
+    <!-- Torso y Cabeza atléticos -->
     <g class="body-bob">
-      <!-- Torso rojo carmesí con inclinación de carrera -->
-      <polygon points="36,36 66,32 58,68 38,68" fill="#e50914"/>
-      
-      <!-- Cinturón de rayo dorado -->
-      <polygon points="37,66 48,63 45,69 57,65 56,70 38,70" fill="#ffe600"/>
+      <!-- Torso rojo -->
+      <path d="M 46 36 L 68 34 L 58 64 L 46 62 Z" fill="#d50000"/>
+
+      <!-- Cinturón de rayo dorado en la cintura -->
+      <path d="M 45 61 L 52 64 L 49 67 L 59 63" stroke="#ffd700" stroke-width="2.5" fill="none"/>
 
       <!-- Emblema de Flash en el pecho -->
-      <circle cx="52" cy="48" r="9" fill="#ffffff" stroke="#ffe600" stroke-width="2"/>
-      <polygon points="54,40 46,49 51,49 48,58 57,47 52,47" fill="#ffe600"/>
+      <circle cx="56" cy="46" r="8" fill="#ffffff" stroke="#ffd700" stroke-width="1.8"/>
+      <!-- Rayo central -->
+      <polygon points="57,40 51,47 55,47 53,53 60,45 56,45" fill="#ffd700"/>
 
-      <!-- Cabeza con máscara de Flash -->
-      <circle cx="64" cy="24" r="14" fill="#e50914"/>
-      
-      <!-- Rayos/alas doradas de la máscara -->
-      <polygon points="64,16 75,10 69,21" fill="#ffe600"/>
-      <polygon points="57,18 48,13 53,23" fill="#ffe600"/>
-      
-      <!-- Ojo blanco definido de la capucha -->
-      <polygon points="67,21 74,24 67,26" fill="#ffffff"/>
+      <!-- Cabeza: Máscara roja -->
+      <ellipse cx="64" cy="24" rx="10" ry="12" fill="#d50000"/>
+      <!-- Rostro expuesto (boca y barbilla humana) -->
+      <path d="M 64 27 Q 70 28 68 34 Q 63 35 62 31 Z" fill="#ffd0b0"/>
+
+      <!-- Alas de rayo horizontales a los lados de las orejas (diseño original Flash) -->
+      <polygon points="56,23 48,19 53,26" fill="#ffd700"/>
+      <polygon points="68,22 76,18 71,25" fill="#ffd700"/>
+
+      <!-- Visor / hendidura del ojo -->
+      <ellipse cx="66" cy="23" rx="2.5" ry="1.5" fill="#ffffff"/>
     </g>
 
-    <!-- Pierna delantera con bota dorada -->
+    <!-- Pierna Delantera -->
     <g class="leg-front">
-      <line x1="50" y1="65" x2="72" y2="82" stroke="#e50914" stroke-width="10" stroke-linecap="round"/>
-      <polygon points="72,82 86,81 78,92" fill="#ffe600"/>
+      <path d="M 54 62 Q 68 74 76 84" stroke="#d50000" stroke-width="8" stroke-linecap="round" fill="none"/>
+      <!-- Bota dorada -->
+      <path d="M 76 84 L 88 84 L 82 92 Z" fill="#ffd700" stroke="#ffb300" stroke-width="1"/>
     </g>
 
-    <!-- Brazo delantero lanzado al correr -->
+    <!-- Brazo Delantero -->
     <g class="arm-front">
-      <line x1="58" y1="40" x2="80" y2="34" stroke="#e50914" stroke-width="8" stroke-linecap="round"/>
-      <polygon points="80,34 90,30 87,40" fill="#ffe600"/>
+      <path d="M 60 40 Q 75 36 84 32" stroke="#d50000" stroke-width="7" stroke-linecap="round" fill="none"/>
+      <!-- Guantelete dorado -->
+      <circle cx="84" cy="32" r="4" fill="#ffd700"/>
     </g>
   </svg>
   {% endmacro %}
