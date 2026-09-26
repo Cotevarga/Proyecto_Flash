@@ -1,0 +1,5 @@
+sorpresa-flash/
+│
+├── app.py
+├── requirements.txt
+└── generar_qr.py
