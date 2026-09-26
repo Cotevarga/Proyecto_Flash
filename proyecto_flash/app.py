@@ -16,7 +16,7 @@ HTML_TEMPLATE = """
       padding: 0;
     }
     body {
-      background: radial-gradient(circle at center, #1b0000 0%, #050000 100%);
+      background: radial-gradient(circle at center, #220002 0%, #050000 100%);
       height: 100vh;
       overflow: hidden;
       display: flex;
@@ -27,7 +27,7 @@ HTML_TEMPLATE = """
       position: relative;
     }
 
-    /* Destello inicial de relámpago */
+    /* Destello de relámpago inicial */
     .lightning-bg {
       position: absolute;
       inset: 0;
@@ -88,7 +88,8 @@ HTML_TEMPLATE = """
     /* Mensaje central */
     .card {
       text-align: center;
-      padding: 20px;
+      padding: 24px;
+      max-width: 90%;
       opacity: 0;
       transform: scale(0.6);
       animation: popMessage 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.2s forwards;
@@ -97,21 +98,22 @@ HTML_TEMPLATE = """
 
     .badge {
       display: inline-block;
-      margin-bottom: 12px;
-      padding: 5px 16px;
-      background: rgba(255, 230, 0, 0.15);
+      margin-bottom: 16px;
+      padding: 8px 18px;
+      background: rgba(255, 230, 0, 0.12);
       border: 1px solid #ffe600;
       border-radius: 999px;
       color: #ffe600;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      line-height: 1.4;
+      text-shadow: 0 0 10px rgba(255, 230, 0, 0.4);
     }
 
     .text {
       color: #ffffff;
-      font-size: 2.1rem;
+      font-size: 2.2rem;
       font-weight: 800;
       line-height: 1.35;
       text-shadow: 0 0 15px rgba(229, 9, 20, 0.85), 0 0 30px rgba(255, 230, 0, 0.5);
@@ -138,112 +140,55 @@ HTML_TEMPLATE = """
       50% { transform: scale(1.25); }
     }
 
-    /* 2. Flash vuelve por abajo y se queda patrullando */
-    .flash-bottom-zone {
+    /* 2. Logo oficial de Flash abajo */
+    .flash-logo-container {
       position: absolute;
-      bottom: -160px;
+      bottom: -150px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 10;
       display: flex;
       flex-direction: column;
       align-items: center;
-      animation: enterBottom 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 2.2s forwards;
+      animation: enterLogo 1s cubic-bezier(0.2, 0.8, 0.2, 1) 2s forwards;
     }
 
-    @keyframes enterBottom {
+    @keyframes enterLogo {
       to {
-        bottom: 25px;
+        bottom: 30px;
       }
     }
 
-    .flash-avatar {
-      width: 125px;
-      height: 125px;
-      filter: drop-shadow(0 0 12px #ffe600) drop-shadow(0 0 25px #c62828);
-      animation: patrol 3.5s infinite alternate ease-in-out 2.8s;
+    .flash-logo-svg {
+      width: 75px;
+      height: 75px;
+      filter: drop-shadow(0 0 20px #ffe600) drop-shadow(0 0 35px #c62828);
+      animation: logoPulse 2s infinite ease-in-out 3s;
     }
 
-    /* Movimiento de patrulla de izquierda a derecha */
-    @keyframes patrol {
-      0% {
-        transform: translateX(-45px) scaleX(1);
-      }
-      48% {
-        transform: translateX(45px) scaleX(1);
+    @keyframes logoPulse {
+      0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 15px #ffe600) drop-shadow(0 0 30px #c62828);
       }
       50% {
-        transform: translateX(45px) scaleX(-1);
-      }
-      98% {
-        transform: translateX(-45px) scaleX(-1);
-      }
-      100% {
-        transform: translateX(-45px) scaleX(1);
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 25px #ffe600) drop-shadow(0 0 45px #ffe600);
       }
     }
 
-    .speedforce-aura {
-      width: 130px;
+    .energy-ring {
+      width: 110px;
       height: 4px;
-      margin-top: -6px;
+      margin-top: 6px;
       background: radial-gradient(circle, #ffe600 0%, #c62828 60%, transparent 100%);
-      box-shadow: 0 0 15px #ffe600, 0 0 30px #c62828;
-      animation: auraPulse 0.3s infinite alternate ease-in-out 2.8s;
+      box-shadow: 0 0 15px #ffe600, 0 0 25px #c62828;
+      animation: ringGlow 0.4s infinite alternate ease-in-out 3s;
     }
 
-    @keyframes auraPulse {
+    @keyframes ringGlow {
       0% { opacity: 0.4; transform: scaleX(0.7); }
       100% { opacity: 1; transform: scaleX(1.3); }
-    }
-
-    /* Animación de carrera para las extremidades */
-    .leg-back {
-      transform-origin: 48px 62px;
-      animation: legBackMove 0.26s infinite alternate ease-in-out;
-    }
-    .leg-front {
-      transform-origin: 52px 62px;
-      animation: legFrontMove 0.26s infinite alternate ease-in-out;
-    }
-    .arm-back {
-      transform-origin: 46px 42px;
-      animation: armBackMove 0.26s infinite alternate ease-in-out;
-    }
-    .arm-front {
-      transform-origin: 58px 40px;
-      animation: armFrontMove 0.26s infinite alternate ease-in-out;
-    }
-    .body-bob {
-      animation: bobbing 0.13s infinite alternate ease-in-out;
-    }
-    .lightning-crack {
-      animation: crackle 0.2s infinite alternate;
-    }
-
-    @keyframes legBackMove {
-      0% { transform: rotate(-25deg); }
-      100% { transform: rotate(35deg); }
-    }
-    @keyframes legFrontMove {
-      0% { transform: rotate(30deg); }
-      100% { transform: rotate(-30deg); }
-    }
-    @keyframes armBackMove {
-      0% { transform: rotate(35deg); }
-      100% { transform: rotate(-35deg); }
-    }
-    @keyframes armFrontMove {
-      0% { transform: rotate(-35deg); }
-      100% { transform: rotate(30deg); }
-    }
-    @keyframes bobbing {
-      0% { transform: translateY(0px); }
-      100% { transform: translateY(-3px); }
-    }
-    @keyframes crackle {
-      0% { opacity: 0.2; }
-      100% { opacity: 0.9; }
     }
   </style>
 </head>
@@ -251,74 +196,29 @@ HTML_TEMPLATE = """
   <div class="lightning-bg"></div>
   <div class="speed-trail"></div>
 
-  <!-- Componente gráfico de Flash Barry Allen -->
-  {% macro flash_figure() %}
-  <svg viewBox="0 0 120 120" width="100%" height="100%">
-    <!-- Rayos de electricidad Speed Force traseros -->
-    <g class="lightning-crack" stroke="#ffe600" stroke-width="2" fill="none">
-      <path d="M 25 45 L 35 52 L 28 60 L 40 68" />
-      <path d="M 50 15 L 42 25 L 48 30" />
-    </g>
-
-    <!-- Pierna Trasera -->
-    <g class="leg-back">
+  <!-- Flash cruzando a toda velocidad -->
+  <div class="flash-first-pass">
+    <svg viewBox="0 0 120 120" width="100%" height="100%">
+      <!-- Rayos de energía -->
+      <g stroke="#ffe600" stroke-width="2" fill="none">
+        <path d="M 25 45 L 35 52 L 28 60 L 40 68" />
+        <path d="M 50 15 L 42 25 L 48 30" />
+      </g>
+      <!-- Piernas y silueta veloz -->
       <path d="M 46 62 Q 35 75 22 88" stroke="#9b0000" stroke-width="8" stroke-linecap="round" fill="none"/>
-      <!-- Bota dorada -->
-      <path d="M 22 88 L 12 90 L 18 96 Z" fill="#ffd700" stroke="#ffb300" stroke-width="1"/>
-    </g>
-
-    <!-- Brazo Trasero -->
-    <g class="arm-back">
-      <path d="M 46 42 Q 35 50 25 58" stroke="#9b0000" stroke-width="7" stroke-linecap="round" fill="none"/>
-      <!-- Guantelete dorado -->
-      <circle cx="25" cy="58" r="4" fill="#ffd700"/>
-    </g>
-
-    <!-- Torso y Cabeza atléticos -->
-    <g class="body-bob">
-      <!-- Torso rojo -->
+      <path d="M 22 88 L 12 90 L 18 96 Z" fill="#ffd700"/>
+      <path d="M 54 62 Q 68 74 76 84" stroke="#d50000" stroke-width="8" stroke-linecap="round" fill="none"/>
+      <path d="M 76 84 L 88 84 L 82 92 Z" fill="#ffd700"/>
+      <!-- Torso -->
       <path d="M 46 36 L 68 34 L 58 64 L 46 62 Z" fill="#d50000"/>
-
-      <!-- Cinturón de rayo dorado en la cintura -->
-      <path d="M 45 61 L 52 64 L 49 67 L 59 63" stroke="#ffd700" stroke-width="2.5" fill="none"/>
-
-      <!-- Emblema de Flash en el pecho -->
       <circle cx="56" cy="46" r="8" fill="#ffffff" stroke="#ffd700" stroke-width="1.8"/>
-      <!-- Rayo central -->
       <polygon points="57,40 51,47 55,47 53,53 60,45 56,45" fill="#ffd700"/>
-
-      <!-- Cabeza: Máscara roja -->
+      <!-- Máscara -->
       <ellipse cx="64" cy="24" rx="10" ry="12" fill="#d50000"/>
-      <!-- Rostro expuesto (boca y barbilla humana) -->
       <path d="M 64 27 Q 70 28 68 34 Q 63 35 62 31 Z" fill="#ffd0b0"/>
-
-      <!-- Alas de rayo horizontales a los lados de las orejas (diseño original Flash) -->
       <polygon points="56,23 48,19 53,26" fill="#ffd700"/>
       <polygon points="68,22 76,18 71,25" fill="#ffd700"/>
-
-      <!-- Visor / hendidura del ojo -->
-      <ellipse cx="66" cy="23" rx="2.5" ry="1.5" fill="#ffffff"/>
-    </g>
-
-    <!-- Pierna Delantera -->
-    <g class="leg-front">
-      <path d="M 54 62 Q 68 74 76 84" stroke="#d50000" stroke-width="8" stroke-linecap="round" fill="none"/>
-      <!-- Bota dorada -->
-      <path d="M 76 84 L 88 84 L 82 92 Z" fill="#ffd700" stroke="#ffb300" stroke-width="1"/>
-    </g>
-
-    <!-- Brazo Delantero -->
-    <g class="arm-front">
-      <path d="M 60 40 Q 75 36 84 32" stroke="#d50000" stroke-width="7" stroke-linecap="round" fill="none"/>
-      <!-- Guantelete dorado -->
-      <circle cx="84" cy="32" r="4" fill="#ffd700"/>
-    </g>
-  </svg>
-  {% endmacro %}
-
-  <!-- 1. Flash cruzando volando -->
-  <div class="flash-first-pass">
-    {{ flash_figure() }}
+    </svg>
   </div>
 
   <!-- Mensaje de amor -->
@@ -330,12 +230,19 @@ HTML_TEMPLATE = """
     <div class="heart">♥</div>
   </div>
 
-  <!-- 2. Flash patrullando abajo -->
-  <div class="flash-bottom-zone">
-    <div class="flash-avatar">
-      {{ flash_figure() }}
+  <!-- Logo oficial de Flash abajo con aura eléctrica -->
+  <div class="flash-logo-container">
+    <div class="flash-logo-svg">
+      <svg viewBox="0 0 100 100" width="100%" height="100%">
+        <!-- Círculo rojo exterior -->
+        <circle cx="50" cy="50" r="46" fill="#c62828" stroke="#ffe600" stroke-width="4"/>
+        <!-- Círculo interior blanco -->
+        <circle cx="50" cy="50" r="38" fill="#ffffff"/>
+        <!-- Rayo oficial de Flash atravesando el círculo -->
+        <polygon points="53,10 32,52 48,50 42,90 73,42 54,44" fill="#ffd700" stroke="#f57f17" stroke-width="1.5"/>
+      </svg>
     </div>
-    <div class="speedforce-aura"></div>
+    <div class="energy-ring"></div>
   </div>
 </body>
 </html>
