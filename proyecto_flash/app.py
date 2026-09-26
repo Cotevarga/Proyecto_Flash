@@ -323,9 +323,9 @@ HTML_TEMPLATE = """
 
   <!-- Mensaje de amor -->
   <div class="card">
-    <div class="badge">A la velocidad de la luz</div>
+    <div class="badge">Toda mi vida estuve buscando lo imposible, jamás pensé que contigo lo encontraría.</div>
     <div class="text">
-      te amo muuuucho<br>mi amor
+      Ti amo muuuucho<br>Mi amor
     </div>
     <div class="heart">♥</div>
   </div>
